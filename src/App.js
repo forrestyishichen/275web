@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Test from './test'
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
 
 class App extends Component {
   render() {
     return (
+    <div>
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
@@ -39,6 +41,8 @@ class App extends Component {
           </Nav>
         </Navbar.Collapse>
     </Navbar>
+      <Test />
+    </div>
     );
   }
 }
