@@ -8,10 +8,11 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'semantic-ui-css/semantic.min.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import './index.css';
 
 ReactDOM.render((
 	<BrowserRouter>
-    <App />
-  </BrowserRouter>
+    	<App />
+    </BrowserRouter>
   ), document.getElementById('root'));
 registerServiceWorker();
