@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import StarRatings from 'react-star-ratings';
 import DatePicker from 'react-datepicker';
+import '../../node_modules/react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import { Checkbox, Radio, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
@@ -76,7 +77,6 @@ export default class NewNote extends Component {
   }
 
   render() {
-    const {date, format, mode, inputFormat} = this.state;
     return (
       <div className="NewNote">
         <form onSubmit={this.handleSubmit}>
