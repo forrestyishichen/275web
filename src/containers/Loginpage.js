@@ -3,6 +3,8 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Loginpage.css";
 import LoaderButton from "../components/LoaderButton";
 
+var $ = require('jquery');
+
 export default class Loginpage extends Component {
 
   constructor(props) {

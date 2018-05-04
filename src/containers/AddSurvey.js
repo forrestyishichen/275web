@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
-import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button, PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
 import "./NewNote.css";
 
 
@@ -34,7 +34,7 @@ export default class AddSurvey extends Component {
       
           
               <h4>
-                <b>{"\uFF0B"}</b> Create a new note
+                <Button href="/notes/new">{"\uFF0B"}</Button> Create a new note
               </h4>
 
     );

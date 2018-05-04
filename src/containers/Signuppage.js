@@ -3,6 +3,8 @@ import { HelpBlock, FormGroup, FormControl, ControlLabel } from "react-bootstrap
 import "./Signuppage.css";
 import LoaderButton from "../components/LoaderButton";
 
+var $ = require('jquery');
+
 export default class Signuppage extends Component {
   constructor(props) {
     super(props);
@@ -38,9 +40,23 @@ export default class Signuppage extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    const newUser = {
+      username: this.state.email,
+      password: this.state.password
+    };
+
     this.setState({ isLoading: true });
 
-    this.setState({ newUser: "test" });
+    // this.setState({ newUser: "test" });
+
+    try {
+      this.postVerify();
+      this.setState({
+        newUser
+      });
+    } catch (e) {
+      alert(e.message);
+    }
 
     this.setState({ isLoading: false });
   }
@@ -49,6 +65,32 @@ export default class Signuppage extends Component {
     event.preventDefault();
 
     this.setState({ isLoading: true });
+
+    try {
+      this.postSignUp();
+      this.props.userHasAuthenticated(true);
+      this.props.history.push("/success");
+    } catch (e) {
+      alert(e.message);
+      this.setState({ isLoading: false });
+    }
+  }
+
+  postVerify() {
+    $.get('http://localhost:8080/email_verify', {
+            email: this.state.email}, function(data){
+            console.log(data);
+        });
+  }
+
+  postSignUp() {
+    $.post('http://localhost:8080/signup', {
+            email: this.state.email,
+            password: this.state.password,
+            code: this.state.confirmationCode}, 
+            function(data){
+            console.log(data);
+        });
   }
 
   renderConfirmationForm() {
