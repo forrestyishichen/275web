@@ -20,9 +20,7 @@ class App extends Component {
   }
 
   handleLogout = event => {
-
-
-
+    window.localStorage.removeItem('user');
     this.userHasAuthenticated(false);
     this.props.history.push("/login");
   }
@@ -30,8 +28,11 @@ class App extends Component {
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      userRecord: this.userRecord
     };
+
+    var user = window.localStorage.getItem('user');
 
     return (
       <div className="App Site">

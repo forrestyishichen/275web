@@ -48,7 +48,7 @@ export default class Signuppage extends Component {
     this.setState({ isLoading: true });
 
     try {
-      this.postVerify();
+      await this.postVerify();
       this.setState({
         newUser
       });
@@ -65,7 +65,7 @@ export default class Signuppage extends Component {
     this.setState({ isLoading: true });
 
     try {
-      this.postSignUp();
+      await this.postSignUp();
       alert('Your acccount has been successful created!');
       this.props.userHasAuthenticated(true);
       this.props.history.push("/");

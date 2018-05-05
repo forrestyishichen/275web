@@ -32,8 +32,8 @@ export default class Loginpage extends Component {
 
     this.setState({ isLoading: true });
 
-
     if (this.state.email === "forrestyschen@gmail.com" && this.state.password === "880227" ) {
+      window.localStorage.setItem('user', this.state.email);
       this.props.userHasAuthenticated(true);
       this.props.history.push("/");
     } else {
@@ -41,6 +41,15 @@ export default class Loginpage extends Component {
       this.setState({ isLoading: false });
     }
   }
+
+  // getUser() {
+  //   $.get('http://localhost:8080/account/' + this.state.email, {
+  //           email: this.state.email,
+  //           password: this.state.password, (data) => {
+  //           console.log(data);
+  //           this.personaliseCalcultor(data);
+  //       });
+  // }
 
   render() {
     return (
