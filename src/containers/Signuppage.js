@@ -47,8 +47,6 @@ export default class Signuppage extends Component {
 
     this.setState({ isLoading: true });
 
-    // this.setState({ newUser: "test" });
-
     try {
       this.postVerify();
       this.setState({
@@ -68,9 +66,9 @@ export default class Signuppage extends Component {
 
     try {
       this.postSignUp();
+      alert('Your acccount has been successful created!');
       this.props.userHasAuthenticated(true);
       this.props.history.push("/");
-      alert('Your acccount has been successful created!');
     } catch (e) {
       alert(e.message);
       this.setState({ isLoading: false });
