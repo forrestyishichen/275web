@@ -32,8 +32,6 @@ class App extends Component {
       userRecord: this.userRecord
     };
 
-    var user = window.localStorage.getItem('user');
-
     return (
       <div className="App Site">
         <div className="Site-content">

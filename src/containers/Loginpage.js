@@ -29,27 +29,59 @@ export default class Loginpage extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-
     this.setState({ isLoading: true });
 
-    if (this.state.email === "forrestyschen@gmail.com" && this.state.password === "880227" ) {
-      window.localStorage.setItem('user', this.state.email);
-      this.props.userHasAuthenticated(true);
-      this.props.history.push("/");
-    } else {
-      this.props.history.push("/");
+    try {
+        await this.getLogIn();
+        alert(window.localStorage.getItem('check'));
+        // if (window.localStorage.getItem('check') == this.state.email) {
+        //   alert("OK");
+        // }
+        // window.localStorage.setItem('user', this.state.email);
+        // this.props.userHasAuthenticated(true);
+        // this.props.history.push("/");
+        // alert("Invalid user and password! Pleae try again!");
+        this.setState({ isLoading: false });
+        window.localStorage.removeItem('check');
+        this.props.history.push("/login");
+    } catch (e) {
+      alert(e.message);
       this.setState({ isLoading: false });
     }
+
   }
 
-  // getUser() {
-  //   $.get('http://localhost:8080/account/' + this.state.email, {
-  //           email: this.state.email,
-  //           password: this.state.password, (data) => {
-  //           console.log(data);
-  //           this.personaliseCalcultor(data);
-  //       });
-  // }
+  getLogIn() {
+    // fetch('http://localhost:8080/login?email=${this.state.email}')
+    // .then(result => result.json())
+    // .then(data => {
+    //   window.localStorage.setItem('check', data.email);
+    // }).catch((error) => {
+    //   alert(error.message);
+    // })
+
+    // $.ajax({
+    //   url: "/http://localhost:8080/login", 
+    //   data: {email: this.state.email, password: this.state.password},
+    //   type: 'get',
+    //   error: function(XMLHttpRequest, textStatus, errorThrown){
+    //       alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+    //   },
+    //   success: function(data){
+    //     window.localStorage.setItem('check', data.email)
+    //   }
+    // });
+
+
+    $.get('http://localhost:8080/login', {
+        email: this.state.email,
+        password: this.state.password},
+        function (data) {
+          window.localStorage.setItem('check', data.email);
+    }).fail(function() {
+      alert("Failed");
+    });
+  }
 
   render() {
     return (
