@@ -19,9 +19,9 @@ export default ({ childProps }) =>
     <Route path='/roster' component={Roster} />
     <Route path='/schedule' component={Schedule} />
     <AppliedRoute path='/login' exact component={Loginpage} props={childProps} />
-    <AppliedRoute path='/signup' exact component={Signuppage} props={childProps}/>
-    <AppliedRoute path="/notes/new" exact component={NewNote} props={childProps} />
-    <AppliedRoute path="/survey/new" exact component={AddSurvey} props={childProps} />
-    <AppliedRoute path="/listall" exact component={ListAll} props={childProps} />
+    <AppliedRoute path='/signup' exact component={Signuppage} props={childProps} />
+    <AppliedRoute path='/notes/new' exact component={NewNote} props={childProps} />
+    <AppliedRoute path='/survey/new' exact component={AddSurvey} props={childProps} />
+    <AppliedRoute path='/listall' exact component={ListAll} props={childProps} />
     <Route component={NotFound} />
   </Switch>;

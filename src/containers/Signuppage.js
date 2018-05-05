@@ -69,7 +69,8 @@ export default class Signuppage extends Component {
     try {
       this.postSignUp();
       this.props.userHasAuthenticated(true);
-      this.props.history.push("/success");
+      this.props.history.push("/");
+      alert('Your acccount has been successful created!');
     } catch (e) {
       alert(e.message);
       this.setState({ isLoading: false });
