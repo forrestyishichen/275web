@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Loginpage.css";
 import LoaderButton from "../components/LoaderButton";
+import axios from 'axios';
 
 var $ = require('jquery');
 
@@ -29,21 +30,22 @@ export default class Loginpage extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+
     this.setState({ isLoading: true });
 
     try {
         await this.getLogIn();
         alert(window.localStorage.getItem('check'));
-        // if (window.localStorage.getItem('check') == this.state.email) {
-        //   alert("OK");
-        // }
-        // window.localStorage.setItem('user', this.state.email);
-        // this.props.userHasAuthenticated(true);
-        // this.props.history.push("/");
-        // alert("Invalid user and password! Pleae try again!");
-        this.setState({ isLoading: false });
-        window.localStorage.removeItem('check');
-        this.props.history.push("/login");
+        if (window.localStorage.getItem('check') == this.state.email) {
+          alert("Login success!")
+          window.localStorage.setItem('user', this.state.email);
+          this.props.userHasAuthenticated(true);
+          this.props.history.push("/");
+        } else {
+          alert("Invalid user and password! Pleae try again!");
+          window.localStorage.removeItem('check');
+          this.props.history.push("/login");
+        }
     } catch (e) {
       alert(e.message);
       this.setState({ isLoading: false });
@@ -52,6 +54,19 @@ export default class Loginpage extends Component {
   }
 
   getLogIn() {
+    // axios.post('http://localhost:8080/login', {
+    //   params: {
+    //     email: this.state.email,
+    //     password: this.state.password
+    //   }
+    // })
+    // .then(function (response) {
+    //   console.log(response);
+    //   window.localStorage.setItem('check', response.data.email);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
     // fetch('http://localhost:8080/login?email=${this.state.email}')
     // .then(result => result.json())
     // .then(data => {
@@ -72,12 +87,16 @@ export default class Loginpage extends Component {
     //   }
     // });
 
-
     $.get('http://localhost:8080/login', {
         email: this.state.email,
         password: this.state.password},
         function (data) {
-          window.localStorage.setItem('check', data.email);
+          console.log(data);
+          if (data != null) {
+            window.localStorage.setItem('check', data.email);
+          } else {
+            alert("No such User!");
+          }
     }).fail(function() {
       alert("Failed");
     });
