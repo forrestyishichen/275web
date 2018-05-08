@@ -35,7 +35,6 @@ export default class Loginpage extends Component {
 
     try {
         await this.getLogIn();
-        alert(window.localStorage.getItem('check'));
         if (window.localStorage.getItem('check') == this.state.email) {
           alert("Login success!")
           window.localStorage.setItem('user', this.state.email);
