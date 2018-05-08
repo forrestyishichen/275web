@@ -35,14 +35,15 @@ export default class Loginpage extends Component {
 
     try {
         await this.getLogIn();
-        if (window.localStorage.getItem('check') == this.state.email) {
+        if (window.localStorage.getItem('check') === this.state.password) {
           alert("Login success!")
-          window.localStorage.setItem('user', this.state.email);
+          window.localStorage.removeItem('check');
           this.props.userHasAuthenticated(true);
           this.props.history.push("/");
         } else {
-          alert("Invalid user and password! Pleae try again!");
           window.localStorage.removeItem('check');
+          window.localStorage.removeItem('userid');
+          alert("Invalid user and password! Pleae try again!");
           this.props.history.push("/login");
         }
     } catch (e) {
@@ -92,7 +93,8 @@ export default class Loginpage extends Component {
         function (data) {
           console.log(data);
           if (data != null) {
-            window.localStorage.setItem('check', data.email);
+            window.localStorage.setItem('check', data.password);
+            window.localStorage.setItem('id', data.id);
           } else {
             alert("No such User!");
           }

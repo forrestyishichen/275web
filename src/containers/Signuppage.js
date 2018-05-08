@@ -67,7 +67,6 @@ export default class Signuppage extends Component {
     try {
       await this.postSignUp();
       alert('Your acccount has been successful created!');
-      window.localStorage.setItem('user', this.state.email);
       this.props.userHasAuthenticated(true);
       this.props.history.push("/");
     } catch (e) {
@@ -89,6 +88,7 @@ export default class Signuppage extends Component {
             password: this.state.password,
             code: this.state.confirmationCode}, 
             function(data){
+            window.localStorage.setItem('userid', data.id);
             console.log(data);
         });
   }

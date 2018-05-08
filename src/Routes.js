@@ -16,8 +16,8 @@ import AppliedRoute from './components/AppliedRoute';
 export default ({ childProps }) =>
   <Switch>
     <AppliedRoute path='/' exact component={Home} props={childProps} />
-    <Route path='/roster' component={Roster} />
-    <Route path='/schedule' component={Schedule} />
+    <AppliedRoute path='/roster' component={Roster} props={childProps} />
+    <AppliedRoute path='/schedule' component={Schedule} props={childProps} />
     <AppliedRoute path='/login' exact component={Loginpage} props={childProps} />
     <AppliedRoute path='/signup' exact component={Signuppage} props={childProps} />
     <AppliedRoute path='/notes/new' exact component={NewNote} props={childProps} />

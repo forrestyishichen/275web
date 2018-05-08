@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   handleLogout = event => {
-    window.localStorage.removeItem('user');
+    window.localStorage.removeItem('userid');
     this.userHasAuthenticated(false);
     this.props.history.push("/login");
   }
