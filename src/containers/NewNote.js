@@ -77,47 +77,39 @@ export default class NewNote extends Component {
 
   postSurvey() {
     var id = window.localStorage.getItem('id');
-    var answers = {};
-    answers['surveyType'] = this.state.surveyType;
-    answers['sstartDate'] = this.state.sstartDate.format();
-    answers['sendDate'] = this.state.sendDate.format();
-    answers['question[' + 0 +'].id'] = null;
-    answers['question[' + 0 +'].guiOrder'] = null;
-    answers['question[' + 0 +'].question'] = this.state.question1;
-    answers['question[' + 0 +'].questionType'] = 'MULTIPLE_CHOICE_TEXT';
-    answers['question[' + 0 +'].questionContent'] = null;
-    answers['question[' + 1 +'].id'] = null;
-    answers['question[' + 1 +'].guiOrder'] = null;
-    answers['question[' + 1 +'].question'] = this.state.question2;
-    answers['question[' + 1 +'].questionType'] = 'MULTIPLE_CHOICE_IMAGE';
-    answers['question[' + 1 +'].questionContent'] = null;
-    answers['question[' + 2 +'].id'] = null;
-    answers['question[' + 2 +'].guiOrder'] = null;
-    answers['question[' + 2 +'].question'] = this.state.question3;
-    answers['question[' + 2 +'].questionType'] = 'YES_NO';
-    answers['question[' + 2 +'].questionContent'] = null;
-    answers['question[' + 3 +'].id'] = null;
-    answers['question[' + 3 +'].guiOrder'] = null;
-    answers['question[' + 3 +'].question'] = this.state.question4;
-    answers['question[' + 3 +'].questionType'] = 'DATE_TIME';
-    answers['question[' + 3 +'].questionContent'] = null;
-    answers['question[' + 4 +'].id'] = null;
-    answers['question[' + 4 +'].guiOrder'] = null;
-    answers['question[' + 4 +'].question'] = this.state.question5;
-    answers['question[' + 4 +'].questionType'] = 'STAR_RATING';
-    answers['question[' + 4 +'].questionContent'] = null;
-    answers['question[' + 5 +'].id'] = null;
-    answers['question[' + 5 +'].guiOrder'] = null;
-    answers['question[' + 5 +'].question'] = this.state.question6;
-    answers['question[' + 5 +'].questionType'] = 'SHORT_ANSWER';
-    answers['question[' + 5 +'].questionContent'] = null;
+    
+    // $.post('http://localhost:8080/account/' + id + '/survey', {
+    //   surveyType: this.state.surveyType,
+    //   sstartDate: this.state.sstartDate.format(),
+    //   sendDate: this.state.sendDate.format(),
+    //   questions: answers},
+    //         function(data){
+    //         console.log(data);
+    //     }).fail(function() {
+    //   alert("Failed");
+    // });
 
+    var markers = [{'question': this.state.question1, 'questionType': 'MULTIPLE_CHOICE_TEXT'},
+               {'question': this.state.question2, 'questionType': 'MULTIPLE_CHOICE_IMAGE'},
+               {'question': this.state.question3, 'questionType': 'YES_NO'},
+               {'question': this.state.question4, 'questionType': 'DATE_TIME'},
+               {'question': this.state.question5, 'questionType': 'STAR_RATING'},
+               {'question': this.state.question6, 'questionType': 'SHORT_ANSWER'}];
 
-    $.post('http://localhost:8080/account/' + id + '/survey', answers,
-            function(data){
-            console.log(data);
-        }).fail(function() {
-      alert("Failed");
+    var temp = {'surveyId': 9999, 'surveyType': this.state.surveyType, 'startTime': this.state.sstartDate.format(),
+                'endTime' : this.state.sendDate.format(), 'questions': markers}
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/account/" + id + "/survey",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: JSON.stringify(temp),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){console.log(data);},
+        failure: function(errMsg) {
+            alert(errMsg);
+        }
     });
   }
 
