@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Loginpage.css";
 import LoaderButton from "../components/LoaderButton";
-import axios from 'axios';
 
 var $ = require('jquery');
 
@@ -54,39 +53,6 @@ export default class Loginpage extends Component {
   }
 
   getLogIn() {
-    // axios.post('http://localhost:8080/login', {
-    //   params: {
-    //     email: this.state.email,
-    //     password: this.state.password
-    //   }
-    // })
-    // .then(function (response) {
-    //   console.log(response);
-    //   window.localStorage.setItem('check', response.data.email);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-    // fetch('http://localhost:8080/login?email=${this.state.email}')
-    // .then(result => result.json())
-    // .then(data => {
-    //   window.localStorage.setItem('check', data.email);
-    // }).catch((error) => {
-    //   alert(error.message);
-    // })
-
-    // $.ajax({
-    //   url: "/http://localhost:8080/login", 
-    //   data: {email: this.state.email, password: this.state.password},
-    //   type: 'get',
-    //   error: function(XMLHttpRequest, textStatus, errorThrown){
-    //       alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
-    //   },
-    //   success: function(data){
-    //     window.localStorage.setItem('check', data.email)
-    //   }
-    // });
-
     $.get('http://localhost:8080/login', {
         email: this.state.email,
         password: this.state.password},
@@ -94,7 +60,7 @@ export default class Loginpage extends Component {
           console.log(data);
           if (data != null) {
             window.localStorage.setItem('check', data.password);
-            window.localStorage.setItem('id', data.id);
+            window.localStorage.setItem('userid', data.id);
           } else {
             alert("No such User!");
           }

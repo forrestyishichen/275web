@@ -48,22 +48,16 @@ class App extends Component {
                     {this.state.isAuthenticated
                     ? 
                     <Fragment>
-                      <LinkContainer to="/roster">
+                      <LinkContainer to="/allGsurvey">
                           <NavItem>Take a survey</NavItem>
                       </LinkContainer>
-                      <LinkContainer to="/survey/new">
-                        <NavItem>Create your survey</NavItem>
-                      </LinkContainer>
-                      <LinkContainer to="/notes/new">
-                        <NavItem>Manage your survey</NavItem>
-                      </LinkContainer>
                       <LinkContainer to="/listall">
-                        <NavItem>ListAll</NavItem>
+                        <NavItem>Manage your survey</NavItem>
                       </LinkContainer>
                     </Fragment>
                     :
                     <Fragment> 
-                      <LinkContainer to="/roster">
+                      <LinkContainer to="/allGsurvey">
                         <NavItem>Take a survey</NavItem>
                       </LinkContainer>
                     </Fragment>

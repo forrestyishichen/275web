@@ -4,7 +4,7 @@ import "./ListAll.css";
 
 var $ = require('jquery');
 
-export default class Home extends Component {
+export default class ListAll extends Component {
   constructor(props) {
     super(props);
 
@@ -12,6 +12,7 @@ export default class Home extends Component {
       isLoading: true,
       surveys: []
     };
+    this.getSurveys = this.getSurveys.bind(this);
   }
 
   async componentDidMount() {
@@ -20,10 +21,7 @@ export default class Home extends Component {
     }
 
     try {
-      const surveys = await this.getSurveys();
-      console.log(surveys);
-      this.setState({ surveys });
-      console.log(this.state.surveys);
+      await this.getSurveys();
     } catch (e) {
       alert(e);
     }
@@ -33,45 +31,43 @@ export default class Home extends Component {
 
   getSurveys() {
     var id = window.localStorage.getItem('id');
+    var that = this;
     $.get('http://localhost:8080/account/' + id + '/allsurveys',
         function (data) {
-          console.log(data);
-          return data;
+          that.setState({ surveys: data });
     }).fail(function() {
       alert("Failed");
     });
   }
 
   renderSurveysList(surveys) {
-    return null;
+    return [{}].concat(surveys).map(
+      (survey, i) =>
+        i !== 0
+          ? <ListGroupItem
+              key={survey.id}
+              href={`/surveys/:${survey.id}`}
+              onClick={this.handleSurveyClick}
+              header={'Survey:' + survey.id}
+            >
+              {"Survey Type: " + survey.surveyType}
+            </ListGroupItem>
+          : <ListGroupItem
+              key="new"
+              href="/surveys/new"
+              onClick={this.handleSurveyClick}
+            >
+              <h4>
+                <b>{"\uFF0B"}</b> Create a new survey
+              </h4>
+            </ListGroupItem>
+    );
+  }
 
-  // return [{}].concat(surveys).map(
-  //   (survey, i) =>
-  //     i !== 0
-  //       ? <ListGroupItem
-  //           key={i}
-  //           // href={`/survey/${i}`}
-  //           // onClick={this.handleSurveyClick}
-  //           header={survey.id}
-  //         >
-  //           // {"Created: " + new Date(survey.createdAt).toLocaleString()}
-  //         </ListGroupItem>
-  //       : <ListGroupItem
-  //           key="new"
-  //           href="/surveys/new"
-  //           onClick={this.handleSurveyClick}
-  //         >
-  //           <h4>
-  //             <b>{"\uFF0B"}</b> Create a new survey
-  //           </h4>
-  //         </ListGroupItem>
-  // );
+handleSurveyClick = event => {
+  event.preventDefault();
+  this.props.history.push(event.currentTarget.getAttribute("href"));
 }
-
-// handleSurveyClick = event => {
-//   event.preventDefault();
-//   this.props.history.push(event.currentTarget.getAttribute("href"));
-// }
 
   renderLander() {
     return (
@@ -82,10 +78,10 @@ export default class Home extends Component {
     );
   }
 
-  renderNotes() {
+  renderSurveys() {
     return (
       <div className="notes">
-        <PageHeader>Your Notes</PageHeader>
+        <PageHeader>Your Survey</PageHeader>
         <ListGroup>
           {!this.state.isLoading && this.renderSurveysList(this.state.surveys)}
         </ListGroup>
@@ -96,7 +92,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="Home">
-        {this.props.isAuthenticated ? this.renderNotes() : this.renderLander()}
+        {this.props.isAuthenticated ? this.renderSurveys() : this.renderLander()}
       </div>
     );
   }

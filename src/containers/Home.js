@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Jumbotron, Carousel, Button } from "react-bootstrap";
-import Pic1 from './1.png';
-import Pic2 from './2.png';
-import Pic3 from './3.png';
+import Pic1 from './4.jpeg';
+import Pic2 from './5.jpeg';
+import Pic3 from './6.jpeg';
 import './Home.css';
 
 class Home extends Component {
@@ -13,12 +13,8 @@ class Home extends Component {
       <Jumbotron>
         <h1>Welcome to CMPE275-SurveyApe!</h1>
         <p>
-          This is a simple hero unit, a simple jumbotron-style component for calling
-          extra attention to featured content or information.
-        </p>
-        <p>
           <Button bsStyle="primary" href="
-           /roster">Take a Survey</Button>
+           /allGsurvey">Take a Survey</Button>
         </p>
       </Jumbotron>
       </div>
