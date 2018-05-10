@@ -30,11 +30,12 @@ export default class ListAll extends Component {
   }
 
   getSurveys() {
-    var id = window.localStorage.getItem('id');
+    var id = window.localStorage.getItem('userid');
     var that = this;
     $.get('http://localhost:8080/account/' + id + '/allsurveys',
         function (data) {
           that.setState({ surveys: data });
+          console.log(id);
     }).fail(function() {
       alert("Failed");
     });
