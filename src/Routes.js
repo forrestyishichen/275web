@@ -9,6 +9,7 @@ import NewNote from "./containers/NewNote";
 import ListAll from "./containers/ListAll";
 import AllGsurvey from "./containers/AllGsurvey";
 import Surveys from "./containers/Surveys";
+import MySurveys from "./containers/MySurveys";
 import NotFound from './containers/NotFound';
 import AppliedRoute from './components/AppliedRoute';
 
@@ -24,6 +25,7 @@ export default ({ childProps }) =>
     <AppliedRoute path='/signup' exact component={Signuppage} props={childProps} />
     <AppliedRoute path='/surveys/new' exact component={NewNote} props={childProps} />
     <AppliedRoute path="/surveys/:id" exact component={Surveys} props={childProps} />
+    <AppliedRoute path="/mysurveys/:id" exact component={MySurveys} props={childProps} />
     <AppliedRoute path='/listall' exact component={ListAll} props={childProps} />
     <Route component={NotFound} />
   </Switch>;

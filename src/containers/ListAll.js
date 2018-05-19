@@ -47,7 +47,7 @@ export default class ListAll extends Component {
         i !== 0
           ? <ListGroupItem
               key={survey.id}
-              href={`/surveys/:${survey.id}`}
+              href={`/mysurveys/:${survey.id}`}
               onClick={this.handleSurveyClick}
               header={'Survey:' + survey.id}
             >

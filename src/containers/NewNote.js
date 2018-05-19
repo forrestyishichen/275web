@@ -68,7 +68,7 @@ export default class NewNote extends Component {
     try {
       await this.postSurvey();
       alert('Your survey has been successful created!');
-      this.props.history.push("/");
+      this.props.history.push("/listall");
     } catch (e) {
       alert(e.message);
       this.setState({ isLoading: false });
@@ -78,38 +78,25 @@ export default class NewNote extends Component {
   postSurvey() {
     var id = window.localStorage.getItem('id');
     
-    // $.post('http://localhost:8080/account/' + id + '/survey', {
-    //   surveyType: this.state.surveyType,
-    //   sstartDate: this.state.sstartDate.format(),
-    //   sendDate: this.state.sendDate.format(),
-    //   questions: answers},
-    //         function(data){
-    //         console.log(data);
-    //     }).fail(function() {
-    //   alert("Failed");
-    // });
+    // var markers = [{'question': this.state.question1, 'questionType': 'MULTIPLE_CHOICE_TEXT', 'guiOrder':1},
+    //               {'question': this.state.question2, 'questionType': 'MULTIPLE_CHOICE_IMAGE', 'guiOrder':2},
+    //               {'question': this.state.question3, 'questionType': 'YES_NO', 'guiOrder':3},
+    //               {'question': this.state.question4, 'questionType': 'DATE_TIME', 'guiOrder':4},
+    //               {'question': this.state.question5, 'questionType': 'STAR_RATING', 'guiOrder':5},
+    //               {'question': this.state.question6, 'questionType': 'SHORT_ANSWER', 'guiOrder':6}];
 
-    var markers = [{'question': this.state.question1, 'questionType': 'MULTIPLE_CHOICE_TEXT'},
-               {'question': this.state.question2, 'questionType': 'MULTIPLE_CHOICE_IMAGE'},
-               {'question': this.state.question3, 'questionType': 'YES_NO'},
-               {'question': this.state.question4, 'questionType': 'DATE_TIME'},
-               {'question': this.state.question5, 'questionType': 'STAR_RATING'},
-               {'question': this.state.question6, 'questionType': 'SHORT_ANSWER'}];
-
-    var temp = {'surveyId': 9999, 'surveyType': this.state.surveyType, 'startTime': this.state.sstartDate.format(),
-                'endTime' : this.state.sendDate.format(), 'questions': markers}
+    var temp = JSON.stringify({"surveyType": "GENERAL", "startTime":"2018-05-08-22", "endTime":"2018-05-30-22", "questions":[]});
+    console.log(temp);
 
     $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/account/" + id + "/survey",
+        type: 'POST',
+        url: 'http://localhost:8080/account/' + id + '/survey',
         // The key needs to match your method's input parameter (case-sensitive).
-        data: JSON.stringify(temp),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
+        data: temp,
+        // contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
         success: function(data){console.log(data);},
-        failure: function(errMsg) {
-            alert(errMsg);
-        }
+        failure: function(errMsg){alert(errMsg);}
     });
   }
 
@@ -181,7 +168,7 @@ export default class NewNote extends Component {
               componentClass="textarea"
             />
           </FormGroup>
-          <FormGroup controlId="select1">
+                    <FormGroup controlId="select1">
             <ControlLabel>Select</ControlLabel>
             <FormControl componentClass="select" placeholder="select">
               <option value="1">1</option>
